@@ -12,5 +12,5 @@ public interface AdminService {
 
     void deleteUser(long id);
 
-    void assignCourse(User user, List<Cousre> courses);
+    void assignCourse(UserDto userDto, List<Cousre> courses);
 }

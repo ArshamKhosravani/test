@@ -3,10 +3,9 @@ package com.arsham.test.demo.Controller;
 import com.arsham.test.demo.Model.Role;
 import com.arsham.test.demo.Model.Rolename;
 import com.arsham.test.demo.Model.User;
-import com.arsham.test.demo.Service.SuperService;
+import com.arsham.test.demo.Service.SuperServiceImp;
+import com.arsham.test.demo.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -15,10 +14,11 @@ import javax.annotation.PostConstruct;
 public class SuperController {
 
     @Autowired
-    private SuperService superService;
+    private SuperServiceImp superService;
 
     @PostMapping("/addAdmin/")
-    public User createAdmin(@RequestBody User admin) {
+    public User createAdmin(@RequestBody UserDto admin) {
+
         return superService.createAdmin(admin);
     }
 

@@ -27,7 +27,7 @@ public class AdminController {
     }
 
     @PostMapping()
-    public void assignCourse(@RequestBody User user, @RequestBody List<Cousre> courses) {
+    public void assignCourse(@RequestBody UserDto user, @RequestBody List<Cousre> courses) {
         adminServiceImpl.assignCourse(user,courses);
     }
 }

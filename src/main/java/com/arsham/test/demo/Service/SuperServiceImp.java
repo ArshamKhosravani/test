@@ -1,6 +1,5 @@
 package com.arsham.test.demo.Service;
 
-import com.arsham.test.demo.Model.Cousre;
 import com.arsham.test.demo.Model.Role;
 import com.arsham.test.demo.Model.Rolename;
 import com.arsham.test.demo.Model.User;
@@ -11,10 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.annotation.PostConstruct;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class SuperServiceImp implements SuperService {
 
     @Autowired
     private UserRepo userRepo;
@@ -24,10 +23,10 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public User createUser(UserDto userDto) {
+    public User createAdmin(UserDto admin) {
         User newUser = new User();
-        newUser.setPassword(encoder().encode(userDto.getPassword()));
-        newUser.setName(userDto.getUsername());
+        newUser.setPassword(encoder().encode(admin.getPassword()));
+        newUser.setName(admin.getUsername());
         Role roleUser = new Role();
         roleUser.setRolename(Rolename.User);
         newUser.setRole(roleUser);
@@ -35,18 +34,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void deleteAdmin(Long id) {
         userRepo.deleteById(id);
-    }
-
-    @Override
-    public void assignCourse(UserDto userDto, List<Cousre> courses) {
-        User newUser = new User();
-        newUser.setPassword(encoder().encode(userDto.getPassword()));
-        newUser.setName(userDto.getUsername());
-        Role roleUser = new Role();
-        roleUser.setRolename(Rolename.User);
-        newUser.setRole(roleUser);
-         userRepo.save(newUser).setCousres(courses);
     }
 }
