@@ -17,7 +17,7 @@ public class SuperService {
         return userRepo.save(admin);
     }
 
-    public void deleteAdmin( Long id) {
+    public void deleteAdmin(Long id) {
         userRepo.deleteById(id);
     }
 }

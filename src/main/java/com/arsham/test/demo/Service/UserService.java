@@ -1,15 +1,10 @@
 package com.arsham.test.demo.Service;
 
-import com.arsham.test.demo.Exception.UserNotFoundException;
 import com.arsham.test.demo.Model.Cousre;
-import com.arsham.test.demo.Model.User;
 import com.arsham.test.demo.Repository.CousreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
