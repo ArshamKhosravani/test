@@ -3,7 +3,6 @@ package com.arsham.test.demo.Controller;
 import com.arsham.test.demo.Model.Cousre;
 import com.arsham.test.demo.Model.User;
 import com.arsham.test.demo.Service.AdminService;
-import com.arsham.test.demo.Service.AdminServiceImpl;
 import com.arsham.test.demo.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
