@@ -33,6 +33,7 @@ public class SuperController {
         Role role = new Role();
         role.setRolename(Rolename.Super);
         user.setRole(role);
+        user.setName("ali");
         user.setPassword("1234");
         return user;
     }

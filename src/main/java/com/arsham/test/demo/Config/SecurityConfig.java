@@ -1,5 +1,6 @@
 package com.arsham.test.demo.Config;
 
+import com.arsham.test.demo.Model.Rolename;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+
+                .antMatchers("/AddUser/", "/deleteUser/{id}/", "/Assign/")
+                .hasRole(Rolename.Admin.name())
+
+                .antMatchers("/addAdmin/", "/deleteAdmin/{id}/")
+                .hasRole(Rolename.Super.name())
+
+                .antMatchers("/getCousre/{id}", "/getAllCourses/", "/deleteCousre/{id}")
+                .hasRole(Rolename.User.name())
+                
                 .anyRequest().authenticated()
+
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -33,7 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("customUserDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
-
 
 
     @Override

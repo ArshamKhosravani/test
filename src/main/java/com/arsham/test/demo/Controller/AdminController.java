@@ -25,7 +25,7 @@ public class AdminController {
         adminServiceImpl.deleteUser(id);
     }
 
-    @PostMapping()
+    @PostMapping("/Assign/")
     public void assignCourse(@RequestBody UserDto user, @RequestBody List<Cousre> courses) {
         adminServiceImpl.assignCourse(user,courses);
     }
