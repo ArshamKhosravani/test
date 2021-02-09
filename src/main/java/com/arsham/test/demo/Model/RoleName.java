@@ -1,6 +1,6 @@
 package com.arsham.test.demo.Model;
 
-public enum Rolename {
+public enum RoleName {
     Super,Admin,User;
 
 }

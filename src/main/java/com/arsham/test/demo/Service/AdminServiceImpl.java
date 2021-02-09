@@ -2,7 +2,7 @@ package com.arsham.test.demo.Service;
 
 import com.arsham.test.demo.Model.Cousre;
 import com.arsham.test.demo.Model.Role;
-import com.arsham.test.demo.Model.Rolename;
+import com.arsham.test.demo.Model.RoleName;
 import com.arsham.test.demo.Model.User;
 import com.arsham.test.demo.Repository.UserRepo;
 import com.arsham.test.demo.dto.UserDto;
@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -29,8 +30,8 @@ public class AdminServiceImpl implements AdminService {
         newUser.setPassword(encoder().encode(userDto.getPassword()));
         newUser.setName(userDto.getUsername());
         Role roleUser = new Role();
-        roleUser.setRolename(Rolename.User);
-        newUser.setRole(roleUser);
+        roleUser.setRolename(RoleName.User);
+        newUser.setRoles(Collections.singleton(roleUser));
         return userRepo.save(newUser);
     }
 
@@ -45,8 +46,9 @@ public class AdminServiceImpl implements AdminService {
         newUser.setPassword(encoder().encode(userDto.getPassword()));
         newUser.setName(userDto.getUsername());
         Role roleUser = new Role();
-        roleUser.setRolename(Rolename.User);
-        newUser.setRole(roleUser);
-         userRepo.save(newUser).setCousres(courses);
+        roleUser.setRolename(RoleName.User);
+        newUser.setRoles(Collections.singleton(roleUser));
+        newUser.setCousres(courses);
+        userRepo.save(newUser);
     }
 }

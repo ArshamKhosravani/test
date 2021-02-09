@@ -1,5 +1,11 @@
+jwt:
+  header: Authorization
+  secret: secret
+
 server:
   port: 8081
+
+
 
 spring:
   datasource:
@@ -13,6 +19,8 @@ spring:
       console:
         path: /h2-console
         enabled: true
+
+
 
 
 

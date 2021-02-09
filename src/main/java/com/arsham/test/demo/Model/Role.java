@@ -1,9 +1,14 @@
 package com.arsham.test.demo.Model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table
+@Getter
+@Setter
 public class Role {
     public Role() {
     }
@@ -14,10 +19,8 @@ public class Role {
     private long id;
 
     @Column(name = "role_name")
-    private Rolename rolename;
+    private RoleName rolename;
 
-    public void setRolename(Rolename rolename) {
-        this.rolename = rolename;
-    }
+
 
 }

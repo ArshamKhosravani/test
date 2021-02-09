@@ -1,18 +1,23 @@
 package com.arsham.test.demo.Model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "USER")
 public class User implements Serializable, UserDetails {
 
@@ -24,20 +29,27 @@ public class User implements Serializable, UserDetails {
     @Column(name = "_name")
     private String name;
 
-    @ManyToOne
-    private Role role;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Role> roles;
 
     @Column
     private String password;
 
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
+    @ManyToMany
+    private List<Cousre> cousres;
+
+    public User(String name,String password){
+        this.name=name;
+        this.password=password;
     }
 
 
-    public void setPassword(String encode) {
-        encode = encoder().encode(encode);
-        this.password = encode;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRolename().name()))
+                .collect(Collectors.toList());
     }
 
 
@@ -46,53 +58,30 @@ public class User implements Serializable, UserDetails {
         this.name = name;
     }
 
-    public User() {
-
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    @ManyToMany
-    private List<Cousre> cousres;
-
-    public void setCousres(List<Cousre> cousres) {
-        this.cousres = cousres;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.name;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
+
 }
